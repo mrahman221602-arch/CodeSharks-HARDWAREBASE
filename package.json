@@ -15,7 +15,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tws": "npx @tailwindcss/cli -i ./hardwarebase/theme/input.css -o ./hardwarebase/theme/output.css --watch"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.3.0",
