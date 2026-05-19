@@ -1,0 +1,24 @@
+{
+  "name": "codesharks_project_hardwarebase",
+  "version": "1.0.0",
+  "description": "node packages for codesharks hardwarebase",
+  "homepage": "https://github.com/DetectiveRohan/codesharks-project-hardwarebase#readme",
+  "bugs": {
+    "url": "https://github.com/DetectiveRohan/codesharks-project-hardwarebase/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DetectiveRohan/codesharks-project-hardwarebase.git"
+  },
+  "license": "ISC",
+  "author": "codesharks",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "tailwindcss": "^4.3.0"
+  }
+}
