@@ -6,3 +6,9 @@ env/
 
 # Cache Files
 __pycache__
+
+# Node Modules
+node_modules/
+
+# Tailwind CSS
+hardwarebase/theme/output.css
