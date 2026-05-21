@@ -7,6 +7,9 @@ env/
 # Cache Files
 __pycache__
 
+# DB Files
+db.sqlite3
+
 # Node Modules
 node_modules/
 
