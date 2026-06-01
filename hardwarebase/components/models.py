@@ -1,6 +1,6 @@
 from django.db import models
 
-# ---
+# --- Primary Tables ---
 
 class CPU(models.Model):
 
@@ -197,3 +197,41 @@ class Case(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+    
+
+    
+# --- Junction Tables ---
+
+class CaseMbFormFactor(models.Model):
+
+    class FormFactorChoices(models.TextChoices):
+        EATX = 'E-ATX', 'E-ATX'
+        ATX = 'ATX', 'ATX'
+        MICRO_ATX = 'Micro-ATX', 'Micro-ATX'
+        MINI_ITX = 'Mini-ITX', 'Mini-ITX'
+
+    case = models.ForeignKey(Case, on_delete=models.CASCADE, null=True, related_name='related_mb')
+    mb_form_factor = models.CharField(max_length=50, choices=FormFactorChoices.choices)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['case', 'mb_form_factor'], name='unique_form_factor')
+        ]
+
+    def __str__(self):
+        return f'JTable: CaseMbFormFactor [{self.case.name} - {self.mb_form_factor}]'
+    
+# ---
+
+class CaseFrontPanelUSB(models.Model):
+
+    case = models.ForeignKey(Case, on_delete=models.CASCADE, null=True, related_name='related_usb')
+    fpanel_usb = models.CharField(max_length=50)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['case', 'fpanel_usb'], name='unique_fpanel_usb')
+        ]
+
+    def __str__(self):
+        return f'JTable: CaseFrontPanelUSB [{self.case.name} - {self.fpanel_usb}]'
