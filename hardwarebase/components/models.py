@@ -1,5 +1,27 @@
 from django.db import models
 
+''' Tables:
+--- Primary ---
+* CPU
+* Motherboard
+* RAM
+* Storage
+* PSU
+* GPU
+* Case
+--- Case Junction Tables ---
+* CaseMbFormFactor
+* CaseFrontPanelUSB
+'''
+
+# --- Choice Classes ---
+
+class FormFactorChoices(models.TextChoices):
+    EATX = 'E-ATX', 'E-ATX'
+    ATX = 'ATX', 'ATX'
+    MICRO_ATX = 'Micro-ATX', 'Micro-ATX'
+    MINI_ITX = 'Mini-ITX', 'Mini-ITX'
+
 # --- Primary Tables ---
 
 class CPU(models.Model):
@@ -35,12 +57,6 @@ class CPU(models.Model):
 # ---
 
 class Motherboard(models.Model):
-
-    class FormFactorChoices(models.TextChoices):
-        EATX = 'E-ATX', 'E-ATX'
-        ATX = 'ATX', 'ATX'
-        MICRO_ATX = 'Micro-ATX', 'Micro-ATX'
-        MINI_ITX = 'Mini-ITX', 'Mini-ITX'
 
     name = models.CharField(max_length=100, unique=True)
     brand = models.CharField(max_length=50)
@@ -200,15 +216,9 @@ class Case(models.Model):
     
 
     
-# --- Junction Tables ---
+# --- Case Junction Tables ---
 
 class CaseMbFormFactor(models.Model):
-
-    class FormFactorChoices(models.TextChoices):
-        EATX = 'E-ATX', 'E-ATX'
-        ATX = 'ATX', 'ATX'
-        MICRO_ATX = 'Micro-ATX', 'Micro-ATX'
-        MINI_ITX = 'Mini-ITX', 'Mini-ITX'
 
     case = models.ForeignKey(Case, on_delete=models.CASCADE, null=True, related_name='related_mb')
     mb_form_factor = models.CharField(max_length=50, choices=FormFactorChoices.choices)
