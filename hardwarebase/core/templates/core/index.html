@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'theme/output.css' %}">
+    <title>Home - HardwareBase</title>
+</head>
+
+<body class="min-h-screen bg-zinc-950 text-zinc-100">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+            <!-- Title + Navbar -->
+            <div class="flex items-center gap-12">
+                <a href="#" 
+                   class="text-xl font-heading font-bold tracking-wide">
+                    HARDWARE<span class="text-blue-600"> |::| BASE</span>
+                </a>
+                <nav class="hidden md:flex items-center gap-8 text-sm font-text font-medium">
+                    <a href="#" class="text-blue-500">Home</a>
+                    <a href="#" class="text-zinc-400 transition hover:text-amber-400">Build PC</a>
+                    <a href="#" class="text-zinc-400 transition hover:text-amber-400">Components</a>
+                    <a href="#" class="text-zinc-400 transition hover:text-amber-400">Games</a>
+                    <a href="#" class="text-zinc-400 transition hover:text-amber-400">Compare</a>
+                </nav>
+            </div>
+            <!-- Auth - Sign In and Sign Up -->
+            <div class="flex items-center gap-4">
+                <a href="#"
+                   class="rounded-lg bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm font-heading font-medium transition">
+                    Sign In
+                </a>
+                <a href="#"
+                   class="rounded-lg px-4 py-2 text-sm hover:text-amber-400 font-heading font-medium transition">
+                    Sign Up
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative overflow-hidden">
+        <div class="absolute inset-0 bg-linear-to-r from-black via-black/80 to-transparent"></div>
+        <div class="mx-auto grid max-w-7xl lg:grid-cols-2">
+            <!-- Hero Content -->
+            <div class="relative z-10 flex min-h-175 flex-col justify-center px-6">
+                <span class="mb-6 w-fit rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1 text-sm 
+                             font-text font-bold text-blue-400 animate-pulse">
+                    SYSTEM CONFIGURATOR V1.0
+                </span>
+                <h1 class="max-w-xl text-5xl font-heading font-bold leading-tight lg:text-6xl">
+                    Build Your <span class="text-blue-400">Perfect</span> PC
+                </h1>
+                <p class="mt-6 max-w-lg font-text">
+                    Engineer high-performance rigs with real-time compatibility checking and benchmark forecasting. 
+                    Experience professional-grade hardware matching for gaming and productivity.
+                </p>
+                <div class="mt-10 flex flex-wrap gap-4">
+                    <a href="#"
+                       class="rounded-xl bg-blue-600 px-6 py-3 font-heading font-medium transition hover:bg-blue-500">
+                        Start Building <img src="" alt="">
+                    </a>
+                    <a href="#"
+                       class="rounded-xl border border-zinc-700 px-6 py-3 font-heading font-medium transition 
+                              hover:bg-zinc-900">
+                        View Showcase
+                    </a>
+                </div>
+            </div>
+            <!-- Hero Background Image -->
+            <div class="relative h-175">
+                <img src="{% static 'images/index/index-hero-bg.jpg' %}"
+                     alt="Custom Gaming PC"
+                     class="h-full w-full object-fill">
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED BUILDS -->
+    <section class="py-20">
+        <div class="mx-auto max-w-7xl px-6">
+            <!-- Heading Area -->
+            <header class="mb-10 flex items-center justify-between">
+                <div>
+                    <h2 class="text-3xl font-heading font-bold">Featured Builds</h2>
+                    <p class="mt-2 text-zinc-400 font-text">
+                        Hand-picked enthusiast configurations for peak efficiency.
+                    </p>
+                </div>
+                <a href="#" class="text-lg text-zinc-400 hover:text-white font-heading font-semibold transition">
+                    Explore all builds →
+                </a>
+            </header>
+
+            <div class="grid gap-6 lg:grid-cols-3">
+                <!-- BUILD CARD AREA -->
+            </div>
+        </div>
+    </section>
+
+    <!-- GAME PROFILES -->
+    <section class="py-20">
+        <div class="mx-auto max-w-7xl px-6">
+            <h2 class="text-3xl font-heading font-bold">
+                Game Profiles
+            </h2>
+            <div class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+                <!-- GAME CARD AREA -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="pb-20">
+        <div class="mx-auto max-w-7xl px-6">
+            <div class="rounded-3xl border border-zinc-800 bg-linear-to-r from-zinc-900 to-zinc-800 px-8 py-20 text-center">
+                <h2 class="text-5xl font-heading font-bold">Ready to engineer your rig?</h2>
+                <p class="mx-auto mt-6 max-w-2xl text-zinc-400 font-text font-semibold">
+                    Join thousands of builders using PC Forge to optimize their gaming experience and productivity workloads.
+                </p>
+                <a href="#"
+                   class="mt-10 inline-block rounded-full bg-blue-600 px-8 py-4 font-text font-medium 
+                          transition hover:bg-blue-500">
+                    Launch Builder Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-zinc-800 py-10">
+        <div class="mx-auto flex max-w-7xl flex-col gap-6 px-6 md:flex-row md:items-center md:justify-between">
+            <div>
+                <h3 class="font-heading font-bold">
+                    &copy; HardwareBase
+                </h3>
+                <p class="mt-2 text-sm text-zinc-500 font-text">
+                    High Performance Engineering.
+                </p>
+            </div>
+            <nav class="flex flex-wrap gap-6 text-sm text-zinc-500 font-text">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Support</a>
+                <a href="#">API Docs</a>
+            </nav>
+        </div>
+    </footer>
+
+</body>
+
+</html>

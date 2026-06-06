@@ -1,15 +1,15 @@
 /* custom font loads */
 @font-face {
     font-family: space-grotesk;
-    src: url("../static/fonts/SpaceGrotesk-VariableFont_wght.ttf");
+    src: url("../fonts/SpaceGrotesk-VariableFont_wght.ttf");
 }
 @font-face {
     font-family: dm-sans;
-    src: url("../static/fonts/DMSans-VariableFont_opsz\,wght.ttf");
+    src: url("../fonts/DMSans-VariableFont_opsz\,wght.ttf");
 }
 @font-face {
     font-family: jb-mono;
-    src: url("../static/fonts/JetBrainsMono-VariableFont_wght.ttf");
+    src: url("../fonts/JetBrainsMono-VariableFont_wght.ttf");
 }
 
 /* tailwindcss defaults */

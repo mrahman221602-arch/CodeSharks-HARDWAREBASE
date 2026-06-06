@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import HttpRequest
 
-# Create your views here.
+# homepage view
+def index_view(req: HttpRequest):
+    return render(req, 'core/index.html')
