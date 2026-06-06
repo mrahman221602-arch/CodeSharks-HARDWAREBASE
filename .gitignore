@@ -8,7 +8,7 @@ env/
 __pycache__
 
 # Temporary Files
-
+temp/
 
 # DB Files
 db.sqlite3
