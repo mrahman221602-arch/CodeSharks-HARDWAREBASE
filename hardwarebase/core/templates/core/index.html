@@ -5,24 +5,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'theme/output.css' %}">
+    <link rel="shortcut icon" href="{% static 'icons/favicon.svg' %}" type="image/x-icon">
     <title>Home - HardwareBase</title>
 </head>
 
 <body class="min-h-screen bg-zinc-950 text-zinc-100">
+
 
     <!-- HEADER -->
     <header class="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur">
         <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
             <!-- Title + Navbar -->
             <div class="flex items-center gap-12">
-                <a href="#" 
+                <a href="{% url 'home' %}" 
                    class="text-xl font-heading font-bold tracking-wide">
-                    HARDWARE<span class="text-blue-600"> |::| BASE</span>
+                    HARDWARE<span class="text-blue-600"> I::I BASE</span>
                 </a>
                 <nav class="hidden md:flex items-center gap-8 text-sm font-text font-medium">
-                    <a href="#" class="text-blue-500">Home</a>
+                    <a href="{% url 'home' %}" class="text-blue-500">Home</a>
                     <a href="#" class="text-zinc-400 transition hover:text-amber-400">Build PC</a>
                     <a href="#" class="text-zinc-400 transition hover:text-amber-400">Components</a>
                     <a href="#" class="text-zinc-400 transition hover:text-amber-400">Games</a>
@@ -31,7 +32,7 @@
             </div>
             <!-- Auth - Sign In and Sign Up -->
             <div class="flex items-center gap-4">
-                <a href="#"
+                <a href="{% url 'login' %}"
                    class="rounded-lg bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm font-heading font-medium transition">
                     Sign In
                 </a>
@@ -42,6 +43,7 @@
             </div>
         </div>
     </header>
+
 
     <!-- HERO SECTION -->
     <section class="relative overflow-hidden">
@@ -76,10 +78,11 @@
             <div class="relative h-175">
                 <img src="{% static 'images/index/index-hero-bg.jpg' %}"
                      alt="Custom Gaming PC"
-                     class="h-full w-full object-fill">
+                     class="h-full w-full object-cover">
             </div>
         </div>
     </section>
+
 
     <!-- FEATURED BUILDS -->
     <section class="py-20">
@@ -102,6 +105,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- GAME PROFILES -->
     <section class="py-20">
@@ -131,6 +135,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- FOOTER -->
     <footer class="border-t border-zinc-800 py-10">

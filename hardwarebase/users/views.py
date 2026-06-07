@@ -54,7 +54,7 @@ def login_view(req: HttpRequest):
             req.session['cuid'] = user.pk
             return render(req, '')
 
-    return render(req, '')
+    return render(req, 'users/login.html')
 
 
 def logout_view(req: HttpRequest):
