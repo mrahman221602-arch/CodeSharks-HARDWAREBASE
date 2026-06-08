@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'theme/output.css' %}">
+    <link rel="shortcut icon" href="{% static 'icons/favicon.svg' %}" type="image/x-icon">
+    <title>Signup - HardwareBase</title>
+</head>
+
+
+<body class="min-h-screen bg-black text-zinc-100">
+    <div class="grid min-h-screen lg:grid-cols-[52%_48%]">
+
+
+        <!-- HERO SIDE -->
+        <section class="relative hidden overflow-hidden lg:block">
+            <!-- Background Image -->
+            <img src="{% static 'images/auth/login-signup-bg.jpg' %}" alt="Gaming PC"
+                 class="absolute inset-0 h-full w-full object-cover">
+            <!-- Dark Overlay -->
+            <div class="absolute inset-0 bg-linear-to-r from-black/40 via-black/30 to-black/60"></div>
+            <!-- Content -->
+            <div class="relative z-10 flex h-full flex-col justify-between p-12">
+                <!-- Logo + Title -->
+                <div>
+                    <a href="{% url 'home' %}"
+                       class="flex items-center gap-3 text-2xl font-heading font-bold">
+                        <img src="{% static 'icons/cpu-icon-white.svg' %}" alt="CPU Icon" class="w-5 h-5">
+                        <span>HARDWARE<span class="text-blue-600"> I::I BASE</span></span>
+                    </a>
+                </div>
+                <!-- Hero Text -->
+                <div class="-mt-24">
+                    <h1 class="max-w-xl text-7xl font-heading font-bold leading-[1.05] tracking-tight">
+                        Engineer Your Ultimate Rig.
+                    </h1>
+                </div>
+                <!-- Bottom Stats -->
+                <div class="flex gap-16">
+                    <div>
+                        <h2 class="text-5xl font-heading font-bold text-orange-300">
+                            99.9%
+                        </h2>
+                        <p class="mt-2 text-sm uppercase tracking-[0.25em] text-zinc-400">
+                            Compatibility
+                        </p>
+                    </div>
+                    <div>
+                        <h2 class="text-5xl font-heading font-bold text-blue-300">
+                            V1.0
+                        </h2>
+                        <p class="mt-2 text-sm uppercase tracking-[0.25em] text-zinc-400">
+                            Forge Engine
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- FORM SIDE -->
+        <section class="relative flex items-center justify-center px-6 py-12">
+            <div class="w-full max-w-lg">
+                <!-- Heading -->
+                <header>
+                    <h2 class="text-5xl font-heading font-bold">
+                        Register
+                    </h2>
+                    <p class="mt-3 text-xl text-zinc-500 font-text">
+                        Access the build tool and start your next revolution
+                    </p>
+                </header>
+
+
+                <!-- Signup Card -->
+                <div class="mt-10 rounded-3xl border border-zinc-800 bg-zinc-900/90 p-8
+                            shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+                    <!-- Sginup Form -->
+                    <form action="{% url 'signup' %}" method="POST" class="space-y-6">
+                        <!-- CSRF Token -->
+                        {% csrf_token %}
+                        <!-- Username -->
+                        <div>
+                            <label for="username" class="mb-3 block text-lg font-text font-medium">
+                                Create a Username
+                            </label>
+                            <input id="username" type="text" name="username"
+                                   placeholder="e.g. BasedGamer" required
+                                   class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-4 text-base 
+                                          outline-none transition focus:border-blue-500 font-text">
+                        </div>
+                        <div>
+                            <label for="email" class="mb-3 block text-lg font-text font-medium">
+                                Enter Email Address
+                            </label>
+                            <input id="email" type="email" name="email"
+                                   placeholder="e.g. basedgamer@example.com" required
+                                   class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-4 text-base 
+                                          outline-none transition focus:border-blue-500 font-text">
+                        </div>
+                        <!-- Password Input -->
+                        <div>
+                            <div class="mb-3 flex items-center justify-between">
+                                <label for="password" class="text-lg font-text font-medium">
+                                    Create a Password
+                                </label>
+                            </div>
+                            <div class="flex">
+                                <input id="password" type="password" name="pwd_hash"
+                                    placeholder="At least 8 characters." minlength="8" maxlength="255" required
+                                    class="w-[90%] rounded-l-xl border border-zinc-800 bg-zinc-950 px-4 py-4 text-base
+                                            outline-none transition focus:border-blue-500 font-text">
+                                <button id="pwd-show" type="button"
+                                    class="w-[10%] rounded-r-xl border border-zinc-800 bg-zinc-950 p-3
+                                           outline-none transition hover:opacity-90">
+                                    <img id="pwd-show-icon" src="{% static 'icons/eye-open.svg' %}" alt="Eye">
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Submit -->
+                        <button type="submit"
+                            class="w-full rounded-xl bg-teal-700 px-6 py-4 text-lg font-text font-medium transition 
+                                   hover:bg-teal-600 cursor-pointer">
+                            Create Account
+                        </button>
+                        <!-- Error Messages -->
+                        {% if cred_error %}
+                            <p class="text-red-600 text-center font-text font-semibold">{{ cred_error }}</p>
+                        {% endif %}
+                    </form>
+                </div>
+
+                
+                <!-- Login Link -->
+                <div class="mt-10 text-center">
+                    <span class="text-zinc-500 font-text">
+                        Already a member?
+                    </span>
+                    <a href="{% url 'login' %}"
+                       class="ml-2 font-text font-medium text-amber-400 hover:text-amber-200 transition">
+                        Sign In
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+
+<!-- JS -->
+<script>
+
+const pwdShowBtn = document.getElementById(`pwd-show`);
+const pwdShowIcon = document.getElementById(`pwd-show-icon`);
+const pwdField = document.getElementById(`password`);
+let toggle = false;
+
+pwdShowBtn.addEventListener('click', function() {
+    if(toggle) {
+        toggle = false;
+        pwdShowIcon.setAttribute(`src`, `{% static 'icons/eye-open.svg' %}`);
+        pwdField.setAttribute(`type`, `password`);
+    }
+    else {
+        toggle = true;
+        pwdShowIcon.setAttribute(`src`, `{% static 'icons/eye-crossed.svg' %}`);
+        pwdField.setAttribute(`type`, `text`);
+    }
+})
+
+</script>
+
+</body>
+
+
+</html>
