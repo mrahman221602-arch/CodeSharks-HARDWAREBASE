@@ -2,6 +2,7 @@
 <html lang="en">
 {% load static %}
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +29,7 @@
                 <div>
                     <a href="{% url 'home' %}"
                        class="flex items-center gap-3 text-2xl font-heading font-bold">
+                        <img src="{% static 'icons/cpu-icon-white.svg' %}" alt="CPU Icon" class="w-5 h-5">
                         <span>HARDWARE<span class="text-blue-600"> I::I BASE</span></span>
                     </a>
                 </div>
@@ -72,19 +74,22 @@
                         Welcome back, builder
                     </p>
                 </header>
+
+
                 <!-- Login Card -->
                 <div class="mt-10 rounded-3xl border border-zinc-800 bg-zinc-900/90 p-8
                             shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
-
                     <!-- Login Form -->
-                    <form class="space-y-6">
+                    <form action="{% url 'login' %}" method="POST" class="space-y-6">
+                        <!-- CSRF Token -->
+                        {% csrf_token %}
                         <!-- Username or Email Input -->
                         <div>
                             <label for="userid" class="mb-3 block text-lg font-text font-medium">
                                 Username or Email
                             </label>
-                            <input id="userid" type="text"
-                                   placeholder="e.g. BasedGamer or basedgamer@example.com"
+                            <input id="userid" type="text" name="userid"
+                                   placeholder="e.g. BasedGamer or basedgamer@example.com" required
                                    class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-4 text-base 
                                           outline-none transition focus:border-blue-500 font-text">
                         </div>
@@ -95,26 +100,38 @@
                                     Password
                                 </label>
                             </div>
-                            <input id="password" type="password"
-                                   placeholder="At least 8 characters."
-                                   class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-4 text-base
-                                          outline-none transition focus:border-blue-500 font-text">
+                            <div class="flex">
+                                <input id="password" type="password" name="password"
+                                    placeholder="At least 8 characters." minlength="8" maxlength="255" required
+                                    class="w-[90%] rounded-l-xl border border-zinc-800 bg-zinc-950 px-4 py-4 text-base
+                                            outline-none transition focus:border-blue-500 font-text">
+                                <button id="pwd-show" type="button"
+                                    class="w-[10%] rounded-r-xl border border-zinc-800 bg-zinc-950 p-3
+                                           outline-none transition hover:opacity-90">
+                                    <img id="pwd-show-icon" src="{% static 'icons/eye-open.svg' %}" alt="Eye">
+                                </button>
+                            </div>
                         </div>
                         <!-- Submit -->
                         <button type="submit"
                             class="w-full rounded-xl bg-blue-700 px-6 py-4 text-lg font-text font-medium transition 
-                                   hover:bg-blue-600">
+                                   hover:bg-blue-600 cursor-pointer">
                             Sign In
                         </button>
+                        <!-- Error Messages -->
+                        {% if auth_error %}
+                            <p class="text-red-600 text-center font-text font-semibold">{{ auth_error }}</p>
+                        {% endif %}
                     </form>
-
                 </div>
+
+
                 <!-- Sign Up Link -->
                 <div class="mt-10 text-center">
                     <span class="text-zinc-500 font-text">
                         New to the arena?
                     </span>
-                    <a href="#"
+                    <a href="{% url 'signup' %}"
                        class="ml-2 font-text font-medium text-amber-400 hover:text-amber-200 transition">
                         Create an account
                     </a>
@@ -123,6 +140,31 @@
         </section>
 
     </div>
+
+<!-- JS -->
+<script>
+
+const pwdShowBtn = document.getElementById(`pwd-show`);
+const pwdShowIcon = document.getElementById(`pwd-show-icon`);
+const pwdField = document.getElementById(`password`);
+let toggle = false;
+
+pwdShowBtn.addEventListener('click', function() {
+    if(toggle) {
+        toggle = false;
+        pwdShowIcon.setAttribute(`src`, `{% static 'icons/eye-open.svg' %}`);
+        pwdField.setAttribute(`type`, `password`);
+    }
+    else {
+        toggle = true;
+        pwdShowIcon.setAttribute(`src`, `{% static 'icons/eye-crossed.svg' %}`);
+        pwdField.setAttribute(`type`, `text`);
+    }
+})
+
+</script>
+
 </body>
+
 
 </html>

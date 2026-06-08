@@ -2,6 +2,7 @@
 <html lang="en">
 {% load static %}
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link rel="shortcut icon" href="{% static 'icons/favicon.svg' %}" type="image/x-icon">
     <title>Home - HardwareBase</title>
 </head>
+
 
 <body class="min-h-screen bg-zinc-950 text-zinc-100">
 
@@ -19,8 +21,9 @@
             <!-- Title + Navbar -->
             <div class="flex items-center gap-12">
                 <a href="{% url 'home' %}" 
-                   class="text-xl font-heading font-bold tracking-wide">
-                    HARDWARE<span class="text-blue-600"> I::I BASE</span>
+                   class="flex gap-3 items-center text-xl font-heading font-bold tracking-wide">
+                    <img src="{% static 'icons/cpu-icon-white.svg' %}" alt="CPU Icon" class="w-6 h-6">
+                    <span>HARDWARE<span class="text-blue-600"> I::I BASE</span></span>
                 </a>
                 <nav class="hidden md:flex items-center gap-8 text-sm font-text font-medium">
                     <a href="{% url 'home' %}" class="text-blue-500">Home</a>
@@ -36,7 +39,7 @@
                    class="rounded-lg bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm font-heading font-medium transition">
                     Sign In
                 </a>
-                <a href="#"
+                <a href="{% url 'signup' %}"
                    class="rounded-lg px-4 py-2 text-sm hover:text-amber-400 font-heading font-medium transition">
                     Sign Up
                 </a>
@@ -55,13 +58,16 @@
                              font-text font-bold text-blue-400 animate-pulse">
                     SYSTEM CONFIGURATOR V1.0
                 </span>
+                <!-- Hero Text -->
                 <h1 class="max-w-xl text-5xl font-heading font-bold leading-tight lg:text-6xl">
                     Build Your <span class="text-blue-400">Perfect</span> PC
                 </h1>
+                <!-- Hero Subtext -->
                 <p class="mt-6 max-w-lg font-text">
                     Engineer high-performance rigs with real-time compatibility checking and benchmark forecasting. 
                     Experience professional-grade hardware matching for gaming and productivity.
                 </p>
+                <!-- Hero Nav Buttons -->
                 <div class="mt-10 flex flex-wrap gap-4">
                     <a href="#"
                        class="rounded-xl bg-blue-600 px-6 py-3 font-heading font-medium transition hover:bg-blue-500">
@@ -119,6 +125,7 @@
         </div>
     </section>
 
+
     <!-- CTA SECTION -->
     <section class="pb-20">
         <div class="mx-auto max-w-7xl px-6">
@@ -141,6 +148,7 @@
     <footer class="border-t border-zinc-800 py-10">
         <div class="mx-auto flex max-w-7xl flex-col gap-6 px-6 md:flex-row md:items-center md:justify-between">
             <div>
+                <!-- Copyright Message -->
                 <h3 class="font-heading font-bold">
                     &copy; HardwareBase
                 </h3>
@@ -148,15 +156,19 @@
                     High Performance Engineering.
                 </p>
             </div>
-            <nav class="flex flex-wrap gap-6 text-sm text-zinc-500 font-text">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Support</a>
-                <a href="#">API Docs</a>
+            <nav class="flex flex-wrap gap-6 text-sm text-zinc-500 font-code">
+                <a href="#" class="hover:text-zinc-300 transition">
+                    About
+                </a>
+                <a href="#" class="hover:text-zinc-300 transition">
+                    Source
+                </a>
             </nav>
         </div>
     </footer>
 
+
 </body>
+
 
 </html>
