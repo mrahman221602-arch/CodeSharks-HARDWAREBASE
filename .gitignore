@@ -7,6 +7,9 @@ env/
 # Cache Files
 __pycache__
 
+# Temporary Files
+temp/
+
 # DB Files
 db.sqlite3
 
@@ -14,4 +17,4 @@ db.sqlite3
 node_modules/
 
 # Tailwind CSS
-hardwarebase/theme/output.css
+hardwarebase/static/theme/output.css
