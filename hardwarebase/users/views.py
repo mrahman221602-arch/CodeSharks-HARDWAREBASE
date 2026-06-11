@@ -1,6 +1,7 @@
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password, check_password
+from django.db.models import QuerySet
 from .models import User
 from .forms import *
 
@@ -69,7 +70,7 @@ def login_view(req: HttpRequest):
             
             # set CUID in session
             req.session['cuid'] = user.pk
-            return render(req, '')
+            return redirect('dashboard')
 
     # GET request processing
     return render(req, 'users/login.html')
@@ -78,3 +79,26 @@ def login_view(req: HttpRequest):
 
 def logout_view(req: HttpRequest):
     pass
+
+# ---
+
+def dashboard_view(req: HttpRequest):
+    
+    # retrieve CUID from session
+    cuid = req.session.get('cuid')
+    if not cuid:
+        return redirect('login')
+    
+    # get current user info
+    try:
+        user = User.objects.get(pk=cuid)
+        # builds: QuerySet = user.user_build.all()
+    except Exception:
+        return redirect('login')
+    
+    context = {
+        'user': user,
+        # 'builds': builds
+    }
+
+    return render(req, 'users/dashboard.html', context)

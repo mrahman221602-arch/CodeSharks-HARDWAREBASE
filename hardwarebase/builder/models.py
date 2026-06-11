@@ -1,5 +1,6 @@
 from django.db import models
 from components.models import *
+from users.models import *
 
 ''' Tables:
 * Build
@@ -17,7 +18,7 @@ class Build(models.Model):
         INCOMPLETE = 'incomplete', 'Incomplete'
         COMPLETE = 'complete', 'Complete'
 
-    user = models.ForeignKey()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='user_build')
     name = models.CharField(max_length=50, blank=True)
     create_date = models.DateField(auto_now_add=True)
     access = models.CharField(max_length=10, choices=AccessChoices.choices)
