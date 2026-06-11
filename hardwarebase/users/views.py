@@ -84,12 +84,10 @@ def logout_view(req: HttpRequest):
 
 def dashboard_view(req: HttpRequest):
     
-    # retrieve CUID from session
+    # get current user info from session
     cuid = req.session.get('cuid')
     if not cuid:
         return redirect('login')
-    
-    # get current user info
     try:
         user = User.objects.get(pk=cuid)
         # builds: QuerySet = user.user_build.all()

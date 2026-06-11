@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'theme/output.css' %}">
+    <link rel="shortcut icon" href="{% static 'icons/favicon.svg' %}" type="image/x-icon">
+    <title>PC Builder - HardwareBase</title>
+</head>
+
+
+<body class="min-h-screen bg-zinc-950 text-zinc-100">
+
+
+ <!-- HEADER -->
+    <header class="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+            <!-- Title + Navbar -->
+            <div class="flex items-center gap-12">
+                <a href="{% url 'home' %}" 
+                   class="flex gap-3 items-center text-xl font-heading font-bold tracking-wide">
+                    <img src="{% static 'icons/cpu-icon-white.svg' %}" alt="CPU Icon" class="w-6 h-6">
+                    <span>HARDWARE<span class="text-blue-600"> I::I BASE</span></span>
+                </a>
+                <nav class="hidden md:flex items-center gap-8 text-sm font-text font-medium">
+                    <a href="{% url 'home' %}" class="text-zinc-400 transition hover:text-amber-400">Home</a>
+                    <a href="{% url 'builder' %}" class="text-blue-500">Build PC</a>
+                    <a href="#" class="text-zinc-400 transition hover:text-amber-400">Components</a>
+                    <a href="#" class="text-zinc-400 transition hover:text-amber-400">Games</a>
+                </nav>
+            </div>
+            <!-- Username + Avatar -->
+            <div class="flex items-center gap-4 rounded-xl">
+                <h3 class="text-xl text-amber-400 font-heading font-bold">
+                    {{ user.username }}
+                </h3>
+                <div class="w-10 h-10 bg-zinc-700 rounded-full hover:opacity-80 transition">
+                    <img src="{% static 'icons/user-circle-white.svg' %}" alt="UA">
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- MAIN BUILDER SECTION -->
+    <div class="grid min-h-[calc(100vh-73px)] grid-cols-[280px_1fr_390px]">
+
+        <!-- LEFT SIDEBAR -->
+        <aside class="flex flex-col justify-center border-r border-zinc-800 bg-zinc-900">
+            <!-- Start New Button -->
+            <div class="p-6">
+                <a href="{% url 'builder' %}"
+                   class="flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-700 py-4 text-xl 
+                          font-heading font-medium hover:bg-blue-600 transition">
+                    <img src="{% static 'icons/plus-circle-white.svg' %}" alt="Start New" class="h-7 w-7">
+                    Start New
+                </a>
+            </div>
+            <!-- Component Nav -->
+            <nav class="flex-1 px-3">
+                <div class="space-y-2 font-text font-semibold">
+                    <!-- Links -->
+                    <a href="#" class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
+                        <img src="{% static 'icons/cpu-icon-white-2.svg' %}" alt="CPU" class="h-5 w-5">
+                        CPU
+                    </a>
+                    <a href="#" class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
+                        <img src="{% static 'icons/motherboard-icon-white.svg' %}" alt="Motherboard" class="h-5 w-5">
+                        Motherboard
+                    </a>
+                    <a href="#" class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
+                        <img src="{% static 'icons/ram-icon-white.svg' %}" alt="RAM" class="h-5 w-5">
+                        RAM
+                    </a>
+                    <a href="#" class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
+                        <img src="{% static 'icons/storage-icon-white.svg' %}" alt="Storage" class="h-5 w-5">
+                        Storage
+                    </a>
+                    <a href="#" class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
+                        <img src="{% static 'icons/graphics-card-icon-white.svg' %}" alt="GPU" class="h-5 w-5">
+                        GPU
+                    </a>
+                    <a href="#" class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
+                        <img src="{% static 'icons/power-icon-white.svg' %}" alt="PSU" class="h-5 w-5">
+                        PSU
+                    </a>
+                    <a href="#" class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
+                        <img src="{% static 'icons/pc-case-icon-white.svg' %}" alt="Case" class="h-5 w-5">
+                        Case
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- CENTER AREA -->
+        <section class="overflow-y-auto p-6">
+            <!-- Header -->
+            <div class="flex items-start justify-between">
+                <div>
+                    <h2 class="text-4xl font-heading font-bold">
+                        Build Configuration
+                    </h2>
+                    <p class="mt-2 text-xl text-zinc-400 font-text">
+                        Selected components for <span class="text-amber-400">New Build</span>
+                    </p>
+                </div>
+            </div>
+            <!-- Components -->
+            <div class="mt-10 space-y-5">
+
+                <!-- SELECTED COMPONENTS AREA -->
+
+            </div>
+        </section>
+
+
+        <!-- RIGHT SIDEBAR -->
+        <aside class="border-l border-zinc-800 bg-zinc-900 p-6 overflow-y-auto">
+            <!-- Summary Header -->
+            <h2 class="text-4xl font-heading font-bold">
+                Build Summary
+            </h2>
+            <!-- Summary Card -->
+            <div class="mt-8 rounded-3xl border border-zinc-700 bg-zinc-950 p-6">
+                <!-- Price Section -->
+                <div class="text-sm text-zinc-400 font-text font-semibold">
+                    TOTAL INVESTMENT
+                </div>
+                <div class="mt-2 text-4xl font-heading font-bold text-blue-200">
+                    $ 0
+                </div>
+                <div class="my-6 border-t border-zinc-800"></div>
+                <!-- Wattage Section -->
+                <div class="text-sm text-zinc-400 font-text font-semibold">
+                    ESTIMATED WATTAGE
+                </div>
+                <div class="mt-2 text-4xl font-heading font-bold text-blue-200">
+                    0 W
+                </div>
+            </div>
+            <!-- System Integrity -->
+            <div class="mt-10">
+                <!-- Subsection Header -->
+                <div class="mb-5 flex items-center gap-2">
+                    <span class="text-sm uppercase tracking-[0.25em] text-zinc-400 font-text font-semibold">
+                        System Integrity
+                    </span>
+                    <!-- Compatibility Indicator Dot -->
+                    <span class="h-2 w-2 rounded-full bg-green-400"></span>
+                </div>
+                <!-- Compatibility Messages -->
+                <div class="space-y-4">
+                    
+                    <!-- COMPATIBILITY WARNING CARD AREA -->
+                    <article class="rounded-2xl border border-green-700 bg-green-900/20 p-5 
+                                    hover:bg-green-950 transition">
+                        <div class="flex gap-4">
+                            <div>
+                                <h4 class="font-text font-semibold text-green-300">
+                                    All Clear!
+                                </h4>
+                                <p class="mt-1 text-sm text-zinc-300 font-text">
+                                    No Compatibility Issues Found
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+            <!-- Footer Action -->
+            <div class="mt-16 border-t border-zinc-800 pt-10">
+                <a href="#"
+                   class="w-full flex items-center justify-center gap-2 rounded-2xl bg-blue-700 py-4 
+                          text-xl font-heading font-medium hover:bg-blue-600 transition">
+                    <img src="{% static 'icons/save-disk-icon-white.svg' %}" alt="Save Build" class="h-7 w-7">
+                    Save Build
+                </a>
+            </div>
+        </aside>
+
+    </div>
+
+
+</body>
+
+
+</html>
