@@ -32,10 +32,23 @@
                     <a href="#" class="text-zinc-400 transition hover:text-amber-400">Games</a>
                 </nav>
             </div>
-            <!-- Auth - Sign In and Sign Up -->
+            {% if logged_in %}
+            <!-- Username + Avatar -->
+            <div class="flex items-center gap-4 rounded-xl">
+                <a href="{% url 'dashboard' %}"
+                   class="text-xl text-amber-400 font-heading font-bold hover:text-amber-300 transition">
+                    {{ user.username }}
+                </a>
+                <div class="w-10 h-10 bg-zinc-700 rounded-full hover:opacity-80 transition">
+                    <img src="{% static 'icons/user-circle-white.svg' %}" alt="UA">
+                </div>
+            </div>
+            {% else %}
+            <!-- Auth - Sign In + Sign Up -->
             <div class="flex items-center gap-4">
                 <a href="{% url 'login' %}"
-                   class="rounded-lg bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm font-heading font-medium transition">
+                   class="rounded-lg bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm font-heading font-medium 
+                          transition">
                     Sign In
                 </a>
                 <a href="{% url 'signup' %}"
@@ -43,6 +56,7 @@
                     Sign Up
                 </a>
             </div>
+            {% endif %}
         </div>
     </header>
 

@@ -32,21 +32,37 @@
                     <a href="#" class="text-zinc-400 transition hover:text-amber-400">Games</a>
                 </nav>
             </div>
+            {% if logged_in %}
             <!-- Username + Avatar -->
             <div class="flex items-center gap-4 rounded-xl">
-                <h3 class="text-xl text-amber-400 font-heading font-bold">
+                <a href="{% url 'dashboard' %}"
+                   class="text-xl text-amber-400 font-heading font-bold hover:text-amber-300 transition">
                     {{ user.username }}
-                </h3>
+                </a>
                 <div class="w-10 h-10 bg-zinc-700 rounded-full hover:opacity-80 transition">
                     <img src="{% static 'icons/user-circle-white.svg' %}" alt="UA">
                 </div>
             </div>
+            {% else %}
+            <!-- Auth - Sign In + Sign Up -->
+            <div class="flex items-center gap-4">
+                <a href="{% url 'login' %}"
+                   class="rounded-lg bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm font-heading font-medium 
+                          transition">
+                    Sign In
+                </a>
+                <a href="{% url 'signup' %}"
+                   class="rounded-lg px-4 py-2 text-sm hover:text-amber-400 font-heading font-medium transition">
+                    Sign Up
+                </a>
+            </div>
+            {% endif %}
         </div>
     </header>
 
 
     <!-- MAIN BUILDER SECTION -->
-    <div class="grid min-h-[calc(100vh-73px)] grid-cols-[280px_1fr_390px]">
+    <section class="grid min-h-[calc(100vh-73px)] grid-cols-[280px_1fr_390px]">
 
         <!-- LEFT SIDEBAR -->
         <aside class="flex flex-col justify-center border-r border-zinc-800 bg-zinc-900">
@@ -63,31 +79,38 @@
             <nav class="flex-1 px-3">
                 <div class="space-y-2 font-text font-semibold">
                     <!-- Links -->
-                    <a href="#" class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
+                    <a href="{% url 'parts' comp='cpu' %}"
+                       class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
                         <img src="{% static 'icons/cpu-icon-white-2.svg' %}" alt="CPU" class="h-5 w-5">
                         CPU
                     </a>
-                    <a href="#" class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
+                    <a href="{% url 'parts' comp='mb' %}" 
+                       class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
                         <img src="{% static 'icons/motherboard-icon-white.svg' %}" alt="Motherboard" class="h-5 w-5">
                         Motherboard
                     </a>
-                    <a href="#" class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
+                    <a href="{% url 'parts' comp='ram' %}" 
+                       class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
                         <img src="{% static 'icons/ram-icon-white.svg' %}" alt="RAM" class="h-5 w-5">
                         RAM
                     </a>
-                    <a href="#" class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
+                    <a href="{% url 'parts' comp='storage' %}" 
+                       class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
                         <img src="{% static 'icons/storage-icon-white.svg' %}" alt="Storage" class="h-5 w-5">
                         Storage
                     </a>
-                    <a href="#" class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
+                    <a href="{% url 'parts' comp='gpu' %}" 
+                       class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
                         <img src="{% static 'icons/graphics-card-icon-white.svg' %}" alt="GPU" class="h-5 w-5">
                         GPU
                     </a>
-                    <a href="#" class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
+                    <a href="{% url 'parts' comp='psu' %}" 
+                       class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
                         <img src="{% static 'icons/power-icon-white.svg' %}" alt="PSU" class="h-5 w-5">
                         PSU
                     </a>
-                    <a href="#" class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
+                    <a href="{% url 'parts' comp='case' %}" 
+                       class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
                         <img src="{% static 'icons/pc-case-icon-white.svg' %}" alt="Case" class="h-5 w-5">
                         Case
                     </a>
@@ -118,59 +141,61 @@
 
 
         <!-- RIGHT SIDEBAR -->
-        <aside class="border-l border-zinc-800 bg-zinc-900 p-6 overflow-y-auto">
-            <!-- Summary Header -->
-            <h2 class="text-4xl font-heading font-bold">
-                Build Summary
-            </h2>
-            <!-- Summary Card -->
-            <div class="mt-8 rounded-3xl border border-zinc-700 bg-zinc-950 p-6">
-                <!-- Price Section -->
-                <div class="text-sm text-zinc-400 font-text font-semibold">
-                    TOTAL INVESTMENT
+        <aside class="border-l border-zinc-800 bg-zinc-900 p-6">
+            <section class="overflow-y-auto">
+                <!-- Summary Header -->
+                <h2 class="text-4xl font-heading font-bold">
+                    Build Summary
+                </h2>
+                <!-- Summary Card -->
+                <div class="mt-8 rounded-3xl border border-zinc-700 bg-zinc-950 p-6">
+                    <!-- Price Section -->
+                    <div class="text-sm text-zinc-400 font-text font-semibold">
+                        TOTAL INVESTMENT
+                    </div>
+                    <div class="mt-2 text-4xl font-heading font-bold text-blue-200">
+                        $ 0
+                    </div>
+                    <div class="my-6 border-t border-zinc-800"></div>
+                    <!-- Wattage Section -->
+                    <div class="text-sm text-zinc-400 font-text font-semibold">
+                        ESTIMATED WATTAGE
+                    </div>
+                    <div class="mt-2 text-4xl font-heading font-bold text-blue-200">
+                        0 W
+                    </div>
                 </div>
-                <div class="mt-2 text-4xl font-heading font-bold text-blue-200">
-                    $ 0
-                </div>
-                <div class="my-6 border-t border-zinc-800"></div>
-                <!-- Wattage Section -->
-                <div class="text-sm text-zinc-400 font-text font-semibold">
-                    ESTIMATED WATTAGE
-                </div>
-                <div class="mt-2 text-4xl font-heading font-bold text-blue-200">
-                    0 W
-                </div>
-            </div>
-            <!-- System Integrity -->
-            <div class="mt-10">
-                <!-- Subsection Header -->
-                <div class="mb-5 flex items-center gap-2">
-                    <span class="text-sm uppercase tracking-[0.25em] text-zinc-400 font-text font-semibold">
-                        System Integrity
-                    </span>
-                    <!-- Compatibility Indicator Dot -->
-                    <span class="h-2 w-2 rounded-full bg-green-400"></span>
-                </div>
-                <!-- Compatibility Messages -->
-                <div class="space-y-4">
-                    
-                    <!-- COMPATIBILITY WARNING CARD AREA -->
-                    <article class="rounded-2xl border border-green-700 bg-green-900/20 p-5 
-                                    hover:bg-green-950 transition">
-                        <div class="flex gap-4">
-                            <div>
-                                <h4 class="font-text font-semibold text-green-300">
-                                    All Clear!
-                                </h4>
-                                <p class="mt-1 text-sm text-zinc-300 font-text">
-                                    No Compatibility Issues Found
-                                </p>
+                <!-- System Integrity -->
+                <div class="mt-10">
+                    <!-- Subsection Header -->
+                    <div class="mb-5 flex items-center gap-2">
+                        <span class="text-sm uppercase tracking-[0.25em] text-zinc-400 font-text font-semibold">
+                            System Integrity
+                        </span>
+                        <!-- Compatibility Indicator Dot -->
+                        <span class="h-2 w-2 rounded-full bg-green-400"></span>
+                    </div>
+                    <!-- Compatibility Messages -->
+                    <div class="space-y-4">
+                        
+                        <!-- COMPATIBILITY WARNING CARD AREA -->
+                        <article class="rounded-2xl border border-green-700 bg-green-900/20 p-5 
+                                        hover:bg-green-950 transition">
+                            <div class="flex gap-4">
+                                <div>
+                                    <h4 class="font-text font-semibold text-green-300">
+                                        All Clear!
+                                    </h4>
+                                    <p class="mt-1 text-sm text-zinc-300 font-text">
+                                        No Compatibility Issues Found
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    </article>
+                        </article>
 
+                    </div>
                 </div>
-            </div>
+            </section>
             <!-- Footer Action -->
             <div class="mt-16 border-t border-zinc-800 pt-10">
                 <a href="#"
@@ -182,7 +207,7 @@
             </div>
         </aside>
 
-    </div>
+    </section>
 
 
 </body>
