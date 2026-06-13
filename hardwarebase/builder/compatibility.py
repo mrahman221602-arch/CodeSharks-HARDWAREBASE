@@ -33,6 +33,7 @@ class CompatibilityChecker:
         self.storage_mb_slot()
         self.gpu_mb_slot()
         self.gpu_case_length()
+        self.psu_wattage()
 
         return self.hard_inc, self.soft_inc
 
