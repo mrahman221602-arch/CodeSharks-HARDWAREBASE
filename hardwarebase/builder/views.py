@@ -11,14 +11,37 @@ def builder_view(req: HttpRequest):
     # get current user info from session
     cuid = req.session.get('cuid')
     if cuid:
+        logged_in = True
         user = User.objects.filter(pk=cuid).first()
-        context = {
-            'logged_in': True,
-            'user': user,
-        }
-        return render(req, 'builder/builder.html', context)
+    else: logged_in = False
 
-    return render(req, 'builder/builder.html', { 'logged_in': False })
+    # get currently selected component info
+    cs_cpu = CPU.objects.filter(pk=req.session.get('cs_cpu', 0)).first()
+    cs_mb = Motherboard.objects.filter(pk=req.session.get('cs_mb', 0)).first()
+    cs_ram = RAM.objects.filter(pk=req.session.get('cs_ram', 0)).first()
+    cs_storage = Storage.objects.filter(pk=req.session.get('cs_storage', 0)).first()
+    cs_gpu = GPU.objects.filter(pk=req.session.get('cs_gpu', 0)).first()
+    cs_psu = PSU.objects.filter(pk=req.session.get('cs_psu', 0)).first()
+    cs_case = Case.objects.filter(pk=req.session.get('cs_case', 0)).first()
+
+    context = {
+
+        # user context
+        'logged_in': logged_in,
+        'user': user,
+
+        # selected components context
+        'cs_cpu': cs_cpu,
+        'cs_mb': cs_mb,
+        'cs_ram': cs_ram,
+        'cs_storage': cs_storage,
+        'cs_gpu': cs_gpu,
+        'cs_psu': cs_psu,
+        'cs_case': cs_case,
+
+    }
+
+    return render(req, 'builder/builder.html', context)
 
 # ---
 
@@ -39,7 +62,7 @@ def component_list(req: HttpRequest, comp: str = None):
         case 'cpu':
             context['cpus'] = CPU.objects.all()
             return render(req, 'builder/cpu_select.html', context)
-        case 'mb':
+        case 'motherboard':
             context['motherboards'] = Motherboard.objects.all()
             return render(req, 'builder/mb_select.html', context)
         case 'ram':
@@ -57,115 +80,60 @@ def component_list(req: HttpRequest, comp: str = None):
         case 'case':
             context['cases'] = Case.objects.all()
             return render(req, 'builder/case_select.html', context)
+        
+# ---
+
+def component_select(req: HttpRequest):
+
+    # get selected component info
+    comp = req.GET.get('comp')
+    comp_id = int(req.GET.get('id', 0))
+
+    # match component type and update session variable
+    match comp:
+        case 'cpu':
+            req.session['cs_cpu'] = comp_id
+        case 'motherboard':
+            req.session['cs_mb'] = comp_id
+        case 'ram':
+            req.session['cs_ram'] = comp_id
+        case 'storage':
+            req.session['cs_storage'] = comp_id
+        case 'gpu':
+            req.session['cs_gpu'] = comp_id
+        case 'psu':
+            req.session['cs_psu'] = comp_id
+        case 'case':
+            req.session['cs_case'] = comp_id
+    
+    return redirect('builder')
 
 # ---
 
-# def cpu_list(req: HttpRequest):
-#     cuid = req.session.get('cuid')
-#     if cuid:
-#         logged_in = True
-#         user = User.objects.filter(pk=cuid).first()
-#     else: logged_in = False
-#     cpus = CPU.objects.all()
-#     context = {
-#         'logged_in': logged_in,
-#         'user': user,
-#         'cpus': cpus,
-#     }
-#     return render(req, 'builder/cpu_select.html', context)
+def component_remove(req: HttpRequest, comp: str = None):
 
-# # ---
+    # match component type and update session variable
+    match comp:
+        case 'cpu':
+            if 'cs_cpu' in req.session:
+                del req.session['cs_cpu']
+        case 'motherboard':
+            if 'cs_mb' in req.session:
+                del req.session['cs_mb']
+        case 'ram':
+            if 'cs_ram' in req.session:
+                del req.session['cs_ram']
+        case 'storage':
+            if 'cs_storage' in req.session:
+                del req.session['cs_storage']
+        case 'gpu':
+            if 'cs_gpu' in req.session:
+                del req.session['cs_gpu']
+        case 'psu':
+            if 'cs_psu' in req.session:
+                del req.session['cs_psu']
+        case 'case':
+            if 'cs_case' in req.session:
+                del req.session['cs_case']
 
-# def mb_list(req: HttpRequest):
-#     cuid = req.session.get('cuid')
-#     if cuid:
-#         logged_in = True
-#         user = User.objects.filter(pk=cuid).first()
-#     else: logged_in = False
-#     motherboards = Motherboard.objects.all()
-#     context = {
-#         'logged_in': logged_in,
-#         'user': user,
-#         'motherboards': motherboards,
-#     }
-#     return render(req, 'builder/mb_select.html', context)
-
-# # ---
-
-# def ram_list(req: HttpRequest):
-#     cuid = req.session.get('cuid')
-#     if cuid:
-#         logged_in = True
-#         user = User.objects.filter(pk=cuid).first()
-#     else: logged_in = False
-#     rams = RAM.objects.all()
-#     context = {
-#         'logged_in': logged_in,
-#         'user': user,
-#         'rams': rams,
-#     }
-#     return render(req, 'builder/ram_select.html', context)
-
-# # ---
-
-# def storage_list(req: HttpRequest):
-#     cuid = req.session.get('cuid')
-#     if cuid:
-#         logged_in = True
-#         user = User.objects.filter(pk=cuid).first()
-#     else: logged_in = False
-#     storages = Storage.objects.all()
-#     context = {
-#         'logged_in': logged_in,
-#         'user': user,
-#         'storages': storages,
-#     }
-#     return render(req, 'builder/storage_select.html', context)
-
-# # ---
-
-# def gpu_list(req: HttpRequest):
-#     cuid = req.session.get('cuid')
-#     if cuid:
-#         logged_in = True
-#         user = User.objects.filter(pk=cuid).first()
-#     else: logged_in = False
-#     gpus = GPU.objects.all()
-#     context = {
-#         'logged_in': logged_in,
-#         'user': user,
-#         'gpus': gpus,
-#     }
-#     return render(req, 'builder/gpu_select.html', context)
-
-# # ---
-
-# def psu_list(req: HttpRequest):
-#     cuid = req.session.get('cuid')
-#     if cuid:
-#         logged_in = True
-#         user = User.objects.filter(pk=cuid).first()
-#     else: logged_in = False
-#     psus = PSU.objects.all()
-#     context = {
-#         'logged_in': logged_in,
-#         'user': user,
-#         'psus': psus,
-#     }
-#     return render(req, 'builder/psu_select.html', context)
-
-# # ---
-
-# def case_list(req: HttpRequest):
-#     cuid = req.session.get('cuid')
-#     if cuid:
-#         logged_in = True
-#         user = User.objects.filter(pk=cuid).first()
-#     else: logged_in = False
-#     cases = Case.objects.all()
-#     context = {
-#         'logged_in': logged_in,
-#         'user': user,
-#         'cases': cases,
-#     }
-#     return render(req, 'builder/case_select.html', context)
+    return redirect('builder')

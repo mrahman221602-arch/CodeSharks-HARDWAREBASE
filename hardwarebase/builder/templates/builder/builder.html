@@ -62,7 +62,8 @@
 
 
     <!-- MAIN BUILDER SECTION -->
-    <section class="grid min-h-[calc(100vh-73px)] grid-cols-[280px_1fr_390px]">
+    <main class="grid min-h-[calc(100vh-73px)] grid-cols-[280px_1fr_390px]">
+
 
         <!-- LEFT SIDEBAR -->
         <aside class="flex flex-col justify-center border-r border-zinc-800 bg-zinc-900">
@@ -75,6 +76,10 @@
                     Start New
                 </a>
             </div>
+            <h4 class="text-sm text-center text-zinc-400 font-text font-semibold tracking-[0.25em] 
+                       pt-4 pb-2">
+                SELECT COMPONENTS
+            </h4>
             <!-- Component Nav -->
             <nav class="flex-1 px-3">
                 <div class="space-y-2 font-text font-semibold">
@@ -84,7 +89,7 @@
                         <img src="{% static 'icons/cpu-icon-white-2.svg' %}" alt="CPU" class="h-5 w-5">
                         CPU
                     </a>
-                    <a href="{% url 'parts' comp='mb' %}" 
+                    <a href="{% url 'parts' comp='motherboard' %}" 
                        class="flex items-center gap-4 px-5 py-4 rounded-2xl hover:bg-blue-950 transition">
                         <img src="{% static 'icons/motherboard-icon-white.svg' %}" alt="Motherboard" class="h-5 w-5">
                         Motherboard
@@ -118,6 +123,7 @@
             </nav>
         </aside>
 
+
         <!-- CENTER AREA -->
         <section class="overflow-y-auto p-6">
             <!-- Header -->
@@ -135,6 +141,393 @@
             <div class="mt-10 space-y-5">
 
                 <!-- SELECTED COMPONENTS AREA -->
+                
+                <!-- Selected CPU -->
+                {% if cs_cpu %}
+                    <article class="rounded-2xl border-4 border-zinc-700 bg-linear-to-r from-zinc-900 to-zinc-950 p-5
+                                    hover:border-amber-500 transition">
+                        <div class="grid grid-cols-[1fr_240px] gap-6">
+                            <!-- Details -->
+                            <div>
+                                <p class="mb-1 text-sm text-zinc-500 font-semibold">SELECTED CPU</p>
+                                <div class="flex items-start justify-between">
+                                    <h2 class="max-w-xl text-2xl font-heading font-bold">
+                                        {{ cs_cpu.name }}
+                                    </h2>
+                                </div>
+                                <div class="mt-6 flex gap-8 font-text">
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">BRAND</p>
+                                        <p class="text-lg font-semibold">{{ cs_cpu.brand }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">SERIES</p>
+                                        <p class="text-lg font-semibold">{{ cs_cpu.series }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">CORES</p>
+                                        <p class="text-lg font-semibold">
+                                            {{ cs_cpu.pcore|add:cs_cpu.ecore|default:cs_cpu.pcore }}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">BOOST CLOCK</p>
+                                        <p class="text-lg font-semibold">{{ cs_cpu.pcore_boost }} GHz</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Pricing -->
+                            <div class="flex flex-col justify-center items-center gap-2 border-l border-zinc-700 pl-6 
+                                        font-heading">
+                                <h3 class="text-center text-4xl text-indigo-300 font-bold">
+                                    ${{ cs_cpu.price }}
+                                </h3>
+                                <div class="flex justify-center gap-4">
+                                    <a href="{% url 'parts' comp='cpu' %}"
+                                    class="mt-8 rounded-xl bg-teal-700 p-4 text-center text-lg font-semibold 
+                                            hover:bg-teal-600 transition">
+                                        Change
+                                    </a>
+                                    <a href="{% url 'remove' comp='cpu' %}"
+                                    class="mt-8 rounded-xl bg-red-700 p-4 content-center text-lg font-semibold 
+                                            hover:bg-red-600 transition">
+                                        <img src="{% static 'icons/trashcan-icon-white.svg' %}" alt="TC" class="h-7 w-7">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                {% endif %}
+
+                <!-- Selected Motherboard -->
+                {% if cs_mb %}
+                    <article class="rounded-2xl border-4 border-zinc-700 bg-linear-to-r from-zinc-900 to-zinc-950 p-5
+                                    hover:border-amber-500 transition">
+                        <div class="grid grid-cols-[1fr_240px] gap-6">
+                            <!-- Details -->
+                            <div>
+                                <p class="mb-1 text-sm text-zinc-500 font-semibold">SELECTED MOTHERBOARD</p>
+                                <div class="flex items-start justify-between">
+                                    <h2 class="max-w-xl text-2xl font-heading font-bold">
+                                        {{ cs_mb.name }}
+                                    </h2>
+                                </div>
+                                <div class="mt-6 flex gap-8 font-text">
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">BRAND</p>
+                                        <p class="text-lg font-semibold">{{ cs_mb.brand }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">SOCKET</p>
+                                        <p class="text-lg font-semibold">{{ cs_mb.socket }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">FORM FACTOR</p>
+                                        <p class="text-lg font-semibold">{{ cs_mb.form_factor }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">MEMORY SUPPORT</p>
+                                        <p class="text-lg font-semibold">{{ cs_mb.max_mem }}GB</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Pricing -->
+                            <div class="flex flex-col justify-center items-center gap-2 border-l border-zinc-700 pl-6 
+                                        font-heading">
+                                <h3 class="text-center text-4xl text-indigo-300 font-bold">
+                                    ${{ cs_mb.price }}
+                                </h3>
+                                <div class="flex justify-center gap-4">
+                                    <a href="{% url 'parts' comp='motherboard' %}"
+                                    class="mt-8 rounded-xl bg-teal-700 p-4 text-center text-lg font-semibold 
+                                            hover:bg-teal-600 transition">
+                                        Change
+                                    </a>
+                                    <a href="{% url 'remove' comp='motherboard' %}"
+                                    class="mt-8 rounded-xl bg-red-700 p-4 content-center text-lg font-semibold 
+                                            hover:bg-red-600 transition">
+                                        <img src="{% static 'icons/trashcan-icon-white.svg' %}" alt="TC" class="h-7 w-7">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                {% endif %}
+
+                <!-- Selected RAM -->
+                {% if cs_ram %}
+                    <article class="rounded-2xl border-4 border-zinc-700 bg-linear-to-r from-zinc-900 to-zinc-950 p-5
+                                    hover:border-amber-500 transition">
+                        <div class="grid grid-cols-[1fr_240px] gap-6">
+                            <!-- Details -->
+                            <div>
+                                <p class="mb-1 text-sm text-zinc-500 font-semibold">SELECTED MEMORY</p>
+                                <div class="flex items-start justify-between">
+                                    <h2 class="max-w-xl text-2xl font-heading font-bold">
+                                        {{ cs_ram.name }}
+                                    </h2>
+                                </div>
+                                <div class="mt-6 flex gap-8 font-text">
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">BRAND</p>
+                                        <p class="text-lg font-semibold">{{ cs_ram.brand }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">GEN</p>
+                                        <p class="text-lg font-semibold">{{ cs_ram.mem_type }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">SPEED</p>
+                                        <p class="text-lg font-semibold">{{ cs_ram.speed }} MHz</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">LATENCY</p>
+                                        <p class="text-lg font-semibold">{{ cs_ram.latency }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Pricing -->
+                            <div class="flex flex-col justify-center items-center gap-2 border-l border-zinc-700 
+                                        pl-6 font-heading">
+                                <h3 class="text-center text-4xl text-indigo-300 font-bold">
+                                    ${{ cs_ram.price }}
+                                </h3>
+                                <div class="flex justify-center gap-4">
+                                    <a href="{% url 'parts' comp='ram' %}"
+                                    class="mt-8 rounded-xl bg-teal-700 p-4 text-center text-lg font-semibold 
+                                            hover:bg-teal-600 transition">
+                                        Change
+                                    </a>
+                                    <a href="{% url 'remove' comp='ram' %}"
+                                    class="mt-8 rounded-xl bg-red-700 p-4 content-center text-lg font-semibold 
+                                            hover:bg-red-600 transition">
+                                        <img src="{% static 'icons/trashcan-icon-white.svg' %}" alt="TC" class="h-7 w-7">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                {% endif %}
+
+                <!-- Selected Storage -->
+                {% if cs_storage %}
+                    <article class="rounded-2xl border-4 border-zinc-700 bg-linear-to-r from-zinc-900 to-zinc-950 p-5
+                                    hover:border-amber-500 transition">
+                        <div class="grid grid-cols-[1fr_240px] gap-6">
+                            <!-- Details -->
+                            <div>
+                                <p class="mb-1 text-sm text-zinc-500 font-semibold">SELECTED STORAGE</p>
+                                <div class="flex items-start justify-between">
+                                    <h2 class="max-w-xl text-2xl font-heading font-bold">
+                                        {{ cs_storage.name }}
+                                    </h2>
+                                </div>
+                                <div class="mt-6 flex gap-8 font-text">
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">BRAND</p>
+                                        <p class="text-lg font-semibold">{{ cs_storage.brand }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">CAPACITY</p>
+                                        <p class="text-lg font-semibold">{{ cs_storage.capacity }}GB</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">FORM FACTOR</p>
+                                        <p class="text-lg font-semibold">{{ cs_storage.form_factor }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">TYPE</p>
+                                        <p class="text-lg font-semibold">{{ cs_storage.storage_type }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Pricing -->
+                            <div class="flex flex-col justify-center items-center gap-2 border-l border-zinc-700 
+                                        pl-6 font-heading">
+                                <h3 class="text-center text-4xl text-indigo-300 font-bold">
+                                    ${{ cs_storage.price }}
+                                </h3>
+                                <div class="flex justify-center gap-4">
+                                    <a href="{% url 'parts' comp='storage' %}"
+                                    class="mt-8 rounded-xl bg-teal-700 p-4 text-center text-lg font-semibold 
+                                            hover:bg-teal-600 transition">
+                                        Change
+                                    </a>
+                                    <a href="{% url 'remove' comp='storage' %}"
+                                    class="mt-8 rounded-xl bg-red-700 p-4 content-center text-lg font-semibold 
+                                            hover:bg-red-600 transition">
+                                        <img src="{% static 'icons/trashcan-icon-white.svg' %}" alt="TC" class="h-7 w-7">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                {% endif %}
+
+                <!-- Selected GPU -->
+                {% if cs_gpu %}
+                    <article class="rounded-2xl border-4 border-zinc-700 bg-linear-to-r from-zinc-900 to-zinc-950 p-5
+                                    hover:border-amber-500 transition">
+                        <div class="grid grid-cols-[1fr_240px] gap-6">
+                            <!-- Details -->
+                            <div>
+                                <p class="mb-1 text-sm text-zinc-500 font-semibold">SELECTED GRAPHICS CARD</p>
+                                <div class="flex items-start justify-between">
+                                    <h2 class="max-w-xl text-2xl font-heading font-bold">
+                                        {{ cs_gpu.name }}
+                                    </h2>
+                                </div>
+                                <div class="mt-6 flex gap-8 font-text">
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">BRAND</p>
+                                        <p class="text-lg font-semibold">{{ cs_gpu.brand }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">BOOST CLOCK</p>
+                                        <p class="text-lg font-semibold">{{ cs_gpu.boost_clk }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">VRAM</p>
+                                        <p class="text-lg font-semibold">{{ cs_gpu.vram }}GB</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">TDP</p>
+                                        <p class="text-lg font-semibold">{{ cs_gpu.tdp }} W</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Pricing -->
+                            <div class="flex flex-col justify-center items-center gap-2 border-l border-zinc-700 
+                                        pl-6 font-heading">
+                                <h3 class="text-center text-4xl text-indigo-300 font-bold">
+                                    ${{ cs_gpu.price }}
+                                </h3>
+                                <div class="flex justify-center gap-4">
+                                    <a href="{% url 'parts' comp='gpu' %}"
+                                    class="mt-8 rounded-xl bg-teal-700 p-4 text-center text-lg font-semibold 
+                                            hover:bg-teal-600 transition">
+                                        Change
+                                    </a>
+                                    <a href="{% url 'remove' comp='gpu' %}"
+                                    class="mt-8 rounded-xl bg-red-700 p-4 content-center text-lg font-semibold 
+                                            hover:bg-red-600 transition">
+                                        <img src="{% static 'icons/trashcan-icon-white.svg' %}" alt="TC" class="h-7 w-7">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                {% endif %}
+
+                <!-- Selected PSU -->
+                {% if cs_psu %}
+                    <article class="rounded-2xl border-4 border-zinc-700 bg-linear-to-r from-zinc-900 to-zinc-950 p-5
+                                    hover:border-amber-500 transition">
+                        <div class="grid grid-cols-[1fr_240px] gap-6">
+                            <!-- Details -->
+                            <div>
+                                <p class="mb-1 text-sm text-zinc-500 font-semibold">SELECTED POWER SUPPLY</p>
+                                <div class="flex items-start justify-between">
+                                    <h2 class="max-w-xl text-2xl font-heading font-bold">
+                                        {{ cs_psu.name }}
+                                    </h2>
+                                </div>
+                                <div class="mt-6 flex gap-8 font-text">
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">BRAND</p>
+                                        <p class="text-lg font-semibold">{{ cs_psu.brand }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">WATTAGE</p>
+                                        <p class="text-lg font-semibold">{{ cs_psu.wattage }} W</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">EFFICIENCY</p>
+                                        <p class="text-lg font-semibold">{{ cs_psu.eff_rating }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">MODULARITY</p>
+                                        <p class="text-lg font-semibold">{{ cs_psu.modularity }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Pricing -->
+                            <div class="flex flex-col justify-center items-center gap-2 border-l border-zinc-700 
+                                        pl-6 font-heading">
+                                <h3 class="text-center text-4xl text-indigo-300 font-bold">
+                                    ${{ cs_psu.price }}
+                                </h3>
+                                <div class="flex justify-center gap-4">
+                                    <a href="{% url 'parts' comp='psu' %}"
+                                    class="mt-8 rounded-xl bg-teal-700 p-4 text-center text-lg font-semibold 
+                                            hover:bg-teal-600 transition">
+                                        Change
+                                    </a>
+                                    <a href="{% url 'remove' comp='psu' %}"
+                                    class="mt-8 rounded-xl bg-red-700 p-4 content-center text-lg font-semibold 
+                                            hover:bg-red-600 transition">
+                                        <img src="{% static 'icons/trashcan-icon-white.svg' %}" alt="TC" class="h-7 w-7">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                {% endif %}
+
+                <!-- Selected Case -->
+                    {% if cs_case %}
+                    <article class="rounded-2xl border-4 border-zinc-700 bg-linear-to-r from-zinc-900 to-zinc-950 p-5
+                                    hover:border-amber-500 transition">
+                        <div class="grid grid-cols-[1fr_240px] gap-6">
+                            <!-- Details -->
+                            <div>
+                                <p class="mb-1 text-sm text-zinc-500 font-semibold">SELECTED CASE</p>
+                                <div class="flex items-start justify-between">
+                                    <h2 class="max-w-xl text-2xl font-heading font-bold">
+                                        {{ cs_case.name }}
+                                    </h2>
+                                </div>
+                                <div class="mt-6 flex gap-8 font-text">
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">BRAND</p>
+                                        <p class="text-lg font-semibold">{{ cs_case.brand }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">TYPE</p>
+                                        <p class="text-lg font-semibold">{{ cs_case.case_type }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">SIDE PANEL</p>
+                                        <p class="text-lg font-semibold">{{ cs_case.side_panel }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-zinc-500 font-semibold">SUPPORTED GPU LENGTH</p>
+                                        <p class="text-lg font-semibold">{{ cs_case.max_gpu_length }}MM</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Pricing -->
+                            <div class="flex flex-col justify-center items-center gap-2 border-l border-zinc-700 
+                                        pl-6 font-heading">
+                                <h3 class="text-center text-4xl text-indigo-300 font-bold">
+                                    ${{ cs_case.price }}
+                                </h3>
+                                <div class="flex justify-center gap-4">
+                                    <a href="{% url 'parts' comp='case' %}"
+                                    class="mt-8 rounded-xl bg-teal-700 p-4 text-center text-lg font-semibold 
+                                            hover:bg-teal-600 transition">
+                                        Change
+                                    </a>
+                                    <a href="{% url 'remove' comp='case' %}"
+                                    class="mt-8 rounded-xl bg-red-700 p-4 content-center text-lg font-semibold 
+                                            hover:bg-red-600 transition">
+                                        <img src="{% static 'icons/trashcan-icon-white.svg' %}" alt="TC" class="h-7 w-7">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                {% endif %}
 
             </div>
         </section>
@@ -169,8 +562,8 @@
                 <div class="mt-10">
                     <!-- Subsection Header -->
                     <div class="mb-5 flex items-center gap-2">
-                        <span class="text-sm uppercase tracking-[0.25em] text-zinc-400 font-text font-semibold">
-                            System Integrity
+                        <span class="text-sm tracking-[0.25em] text-zinc-400 font-text font-semibold">
+                            SYSTEM INTEGRITY
                         </span>
                         <!-- Compatibility Indicator Dot -->
                         <span class="h-2 w-2 rounded-full bg-green-400"></span>
@@ -207,7 +600,8 @@
             </div>
         </aside>
 
-    </section>
+
+    </main>
 
 
 </body>

@@ -68,13 +68,57 @@
                     Power Supply Units
                 </h1>
                 <p class="mt-4 max-w-4xl text-xl text-zinc-400 font-text">
-                    Subtext
+                    Explore PSUs ready to take on the most power-hungry GPUs. 
                 </p>
         </section>
         <!-- Component List -->
         <section class="mt-8 space-y-5">
 
-            <!-- COMPONENT CARD AREA -->
+            <!-- PSU CARDS -->
+            {% for psu in psus %}
+                <article class="rounded-2xl border-4 border-zinc-700 bg-linear-to-r from-zinc-900 to-zinc-950 p-5
+                                hover:border-teal-600 transition">
+                    <div class="grid grid-cols-[1fr_240px] gap-6">
+                        <!-- Details -->
+                        <div>
+                            <div class="flex items-start justify-between">
+                                <h2 class="max-w-xl text-4xl font-heading font-bold">
+                                    {{ psu.name }}
+                                </h2>
+                            </div>
+                            <div class="mt-6 flex gap-8 font-text">
+                                <div>
+                                    <p class="text-sm text-zinc-500 font-semibold">BRAND</p>
+                                    <p class="text-2xl font-semibold">{{psu.brand}}</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-zinc-500 font-semibold">WATTAGE</p>
+                                    <p class="text-2xl font-semibold">{{ psu.wattage }}W</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-zinc-500 font-semibold">EFFICIENCY</p>
+                                    <p class="text-2xl font-semibold">{{ psu.eff_rating }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-zinc-500 font-semibold">MODULARITY</p>
+                                    <p class="text-2xl font-semibold">{{ psu.modularity }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Pricing -->
+                        <div class="flex flex-col border-l border-zinc-700 pl-6 font-heading">
+                            <h3 class="text-center text-4xl text-indigo-300 font-bold">
+                                ${{ psu.price }}
+                            </h3>
+                            <a href="{% url 'select' %}{% querystring comp='psu' id=psu.pk %}"
+                                class="mt-8 w-full rounded-xl bg-blue-700 py-4 text-center text-lg font-semibold 
+                                        hover:bg-blue-600 transition">
+                                Add to Build
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
 
         </section>
     </main>
