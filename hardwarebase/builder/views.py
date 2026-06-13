@@ -15,7 +15,9 @@ def builder_view(req: HttpRequest):
     if cuid:
         logged_in = True
         user = User.objects.filter(pk=cuid).first()
-    else: logged_in = False
+    else: 
+        logged_in = False
+        user = None
 
     # get currently selected component info
     cs_cpu = CPU.objects.filter(pk=req.session.get('cs_cpu', 0)).first()
@@ -67,6 +69,20 @@ def builder_view(req: HttpRequest):
 
 # ---
 
+def start_new_build(req: HttpRequest):
+
+    if 'cs_cpu' in req.session: del req.session['cs_cpu']
+    if 'cs_mb' in req.session: del req.session['cs_mb']
+    if 'cs_ram' in req.session: del req.session['cs_ram']
+    if 'cs_storage' in req.session: del req.session['cs_storage']
+    if 'cs_gpu' in req.session: del req.session['cs_gpu']
+    if 'cs_psu' in req.session: del req.session['cs_psu']
+    if 'cs_case' in req.session: del req.session['cs_case']
+
+    return redirect('builder')
+
+# ---
+
 def component_list(req: HttpRequest, comp: str = None):
 
     # get current user info from session
@@ -74,7 +90,9 @@ def component_list(req: HttpRequest, comp: str = None):
     if cuid:
         logged_in = True
         user = User.objects.filter(pk=cuid).first()
-    else: logged_in = False
+    else: 
+        logged_in = False
+        user = None
     context = {
         'logged_in': logged_in,
         'user': user,
