@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from .models import *
 from users.models import User
 from components.models import *
+from .utils import *
+from .compatibility import CompatibilityChecker
 
 # ---
 
@@ -24,6 +26,17 @@ def builder_view(req: HttpRequest):
     cs_psu = PSU.objects.filter(pk=req.session.get('cs_psu', 0)).first()
     cs_case = Case.objects.filter(pk=req.session.get('cs_case', 0)).first()
 
+    # get total build cost
+    total_cost = calculate_total_price(cs_cpu, cs_mb, cs_ram, cs_storage, cs_gpu, cs_psu, cs_case)
+
+    # get total build wattage
+    total_wattage = calculate_total_wattage(cs_cpu, cs_gpu)
+
+    # check compatibility
+    checker = CompatibilityChecker(cs_cpu, cs_mb, cs_ram, cs_storage, cs_gpu, cs_psu, cs_case)
+    hard_inc, soft_inc = checker.check_compatibility()
+    can_save = True if not hard_inc else False
+
     context = {
 
         # user context
@@ -38,6 +51,15 @@ def builder_view(req: HttpRequest):
         'cs_gpu': cs_gpu,
         'cs_psu': cs_psu,
         'cs_case': cs_case,
+
+        # build stats context
+        'tcost': total_cost,
+        'twattage': total_wattage,
+
+        # incompatility context
+        'hard_inc': hard_inc,
+        'soft_inc': soft_inc,
+        'can_save': can_save,
 
     }
 

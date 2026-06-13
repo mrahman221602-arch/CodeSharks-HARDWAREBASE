@@ -547,7 +547,7 @@
                         TOTAL INVESTMENT
                     </div>
                     <div class="mt-2 text-4xl font-heading font-bold text-blue-200">
-                        $ 0
+                        $ {{ tcost }}
                     </div>
                     <div class="my-6 border-t border-zinc-800"></div>
                     <!-- Wattage Section -->
@@ -555,7 +555,7 @@
                         ESTIMATED WATTAGE
                     </div>
                     <div class="mt-2 text-4xl font-heading font-bold text-blue-200">
-                        0 W
+                        {{ twattage }} W
                     </div>
                 </div>
                 <!-- System Integrity -->
@@ -566,26 +566,67 @@
                             SYSTEM INTEGRITY
                         </span>
                         <!-- Compatibility Indicator Dot -->
-                        <span class="h-2 w-2 rounded-full bg-green-400"></span>
+                        {% if hard_inc %}
+                            <span class="h-2 w-2 rounded-full bg-red-400"></span>
+                        {% elif soft_inc %}
+                            <span class="h-2 w-2 rounded-full bg-amber-400"></span>
+                        {% else %}
+                            <span class="h-2 w-2 rounded-full bg-green-400"></span>
+                        {% endif %} 
                     </div>
                     <!-- Compatibility Messages -->
                     <div class="space-y-4">
                         
-                        <!-- COMPATIBILITY WARNING CARD AREA -->
-                        <article class="rounded-2xl border border-green-700 bg-green-900/20 p-5 
-                                        hover:bg-green-950 transition">
-                            <div class="flex gap-4">
-                                <div>
-                                    <h4 class="font-text font-semibold text-green-300">
-                                        All Clear!
-                                    </h4>
-                                    <p class="mt-1 text-sm text-zinc-300 font-text">
-                                        No Compatibility Issues Found
-                                    </p>
+                        <!-- COMPATIBILITY WARNING CARDS -->
+                        {% if hard_inc %}
+                            {% for msg in hard_inc %}
+                                <article class="rounded-2xl border border-red-700 bg-red-900/20 p-5 
+                                                hover:bg-red-950 transition">
+                                    <div class="flex gap-4">
+                                        <div>
+                                            <h4 class="font-text font-semibold text-red-300">
+                                                Warning!
+                                            </h4>
+                                            <p class="mt-1 text-sm text-zinc-300 font-text">
+                                                {{ msg }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </article>
+                            {% endfor %}
+                        {% endif %}
+                        {% if soft_inc %}
+                            {% for msg in soft_inc %}
+                                <article class="rounded-2xl border border-yellow-700 bg-yellow-900/20 p-5 
+                                                hover:bg-yellow-950 transition">
+                                    <div class="flex gap-4">
+                                        <div>
+                                            <h4 class="font-text font-semibold text-red-300">
+                                                Soft Incompatibility!
+                                            </h4>
+                                            <p class="mt-1 text-sm text-zinc-300 font-text">
+                                                {{ msg }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </article>
+                            {% endfor %}
+                        {% endif %}
+                        {% if not hard_inc and not soft_inc %}
+                            <article class="rounded-2xl border border-green-700 bg-green-900/20 p-5 
+                                            hover:bg-green-950 transition">
+                                <div class="flex gap-4">
+                                    <div>
+                                        <h4 class="font-text font-semibold text-green-300">
+                                            All Clear!
+                                        </h4>
+                                        <p class="mt-1 text-sm text-zinc-300 font-text">
+                                            No Compatibility Issues Found
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        </article>
-
+                            </article>
+                        {% endif %}
                     </div>
                 </div>
             </section>
