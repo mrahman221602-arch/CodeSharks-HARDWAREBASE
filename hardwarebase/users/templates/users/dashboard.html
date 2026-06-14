@@ -41,6 +41,10 @@
                 <div class="w-10 h-10 bg-zinc-700 rounded-full hover:opacity-80 transition">
                     <img src="{% static 'icons/user-circle-white.svg' %}" alt="UA">
                 </div>
+                <a href="{% url 'logout' %}"
+                   class="text-lg text-zinc-400 font-heading font-bold hover:text-red-600 transition">
+                    Log Out →
+                </a>
             </div>
         </div>
     </header>
