@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'theme/output.css' %}">
+    <link rel="shortcut icon" href="{% static 'icons/favicon.svg' %}" type="image/x-icon">
+    <title>Select Case - HardwareBase</title>
+</head>
+
+
+<body class="min-h-screen bg-gray-950 text-zinc-100">
+    
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+            <!-- Title  -->
+            <div class="flex items-center gap-12">
+                <a href="{% url 'home' %}"
+                   class="flex gap-3 items-center text-xl font-heading font-bold tracking-wide">
+                    <img src="{% static 'icons/cpu-icon-white.svg' %}" alt="CPU Icon" class="w-6 h-6">
+                    <span>HARDWARE<span class="text-blue-600"> I::I BASE</span></span>
+                </a>
+                <nav class="hidden md:flex items-center gap-8 text-sm font-text font-medium">
+                    <a href="{% url 'home' %}" class="text-zinc-400 transition hover:text-amber-400">Home</a>
+                    <a href="{% url 'builder' %}" class="text-zinc-400 transition hover:text-amber-400">Build PC</a>
+                    <a href="#" class="text-zinc-400 transition hover:text-amber-400">Components</a>
+                    <a href="#" class="text-zinc-400 transition hover:text-amber-400">Games</a>
+                </nav>
+            </div>
+            {% if logged_in %}
+            <!-- Username + Avatar -->
+            <div class="flex items-center gap-4 rounded-xl">
+                <a href="{% url 'dashboard' %}"
+                   class="text-xl text-amber-400 font-heading font-bold hover:text-amber-300 transition">
+                    {{ user.username }}
+                </a>
+                <div class="w-10 h-10 bg-zinc-700 rounded-full hover:opacity-80 transition">
+                    <img src="{% static 'icons/user-circle-white.svg' %}" alt="UA">
+                </div>
+                <a href="{% url 'logout' %}"
+                   class="text-lg text-zinc-400 font-heading font-bold hover:text-red-600 transition">
+                    Log Out →
+                </a>
+            </div>
+            {% else %}
+            <!-- Auth - Sign In + Sign Up -->
+            <div class="flex items-center gap-4">
+                <a href="{% url 'login' %}"
+                   class="rounded-lg bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm font-heading font-medium 
+                          transition">
+                    Sign In
+                </a>
+                <a href="{% url 'signup' %}"
+                   class="rounded-lg px-4 py-2 text-sm hover:text-amber-400 font-heading font-medium transition">
+                    Sign Up
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </header>
+
+
+    <!-- MAIN SELECTION SECTION -->
+    <main class="p-8">
+        <!-- Section Header -->
+        <section>
+                <h1 class="text-5xl font-heading font-bold">
+                    Cases
+                </h1>
+                <p class="mt-4 max-w-4xl text-xl text-zinc-400 font-text">
+                    Our collection of PC cases are ready to house the most valuable components.
+                    Choose a suitable case to ensure proper airflow and space requirements.
+                </p>
+        </section>
+        <!-- Component List -->
+        <section class="mt-8 space-y-5">
+
+            <!-- CASE CARDS -->
+            {% for case in cases %}
+                <article class="rounded-2xl border-4 border-zinc-700 bg-linear-to-r from-zinc-900 to-zinc-950 p-5
+                                hover:border-teal-600 transition">
+                    <div class="grid grid-cols-[1fr_240px] gap-6">
+                        <!-- Details -->
+                        <div>
+                            <div class="flex items-start justify-between">
+                                <h2 class="max-w-xl text-4xl font-heading font-bold">
+                                    {{ case.name }}
+                                </h2>
+                            </div>
+                            <div class="mt-6 flex gap-8 font-text">
+                                <div>
+                                    <p class="text-sm text-zinc-500 font-semibold">BRAND</p>
+                                    <p class="text-2xl font-semibold">{{ case.brand }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-zinc-500 font-semibold">TYPE</p>
+                                    <p class="text-2xl font-semibold">{{ case.case_type }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-zinc-500 font-semibold">SIDE PANEL</p>
+                                    <p class="text-2xl font-semibold">{{ case.side_panel }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-zinc-500 font-semibold">SUPPORTED GPU LENGTH</p>
+                                    <p class="text-2xl font-semibold">{{ case.max_gpu_length }}mm</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Pricing -->
+                        <div class="flex flex-col border-l border-zinc-700 pl-6 font-heading">
+                            <h3 class="text-center text-4xl text-indigo-300 font-bold">
+                                ${{ case.price }}
+                            </h3>
+                            <a href="{% url 'select' %}{% querystring comp='case' id=case.pk %}"
+                                class="mt-8 w-full rounded-xl bg-blue-700 py-4 text-center text-lg font-semibold 
+                                        hover:bg-blue-600 transition">
+                                Add to Build
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+
+        </section>
+    </main>
+
+
+</body>
+
+
+</html>

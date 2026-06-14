@@ -27,15 +27,32 @@
                 </a>
                 <nav class="hidden md:flex items-center gap-8 text-sm font-text font-medium">
                     <a href="{% url 'home' %}" class="text-blue-500">Home</a>
-                    <a href="#" class="text-zinc-400 transition hover:text-amber-400">Build PC</a>
+                    <a href="{% url 'builder' %}" class="text-zinc-400 transition hover:text-amber-400">Build PC</a>
                     <a href="#" class="text-zinc-400 transition hover:text-amber-400">Components</a>
                     <a href="#" class="text-zinc-400 transition hover:text-amber-400">Games</a>
                 </nav>
             </div>
-            <!-- Auth - Sign In and Sign Up -->
+            {% if logged_in %}
+            <!-- Username + Avatar -->
+            <div class="flex items-center gap-4 rounded-xl">
+                <a href="{% url 'dashboard' %}"
+                   class="text-xl text-amber-400 font-heading font-bold hover:text-amber-300 transition">
+                    {{ user.username }}
+                </a>
+                <div class="w-10 h-10 bg-zinc-700 rounded-full hover:opacity-80 transition">
+                    <img src="{% static 'icons/user-circle-white.svg' %}" alt="UA">
+                </div>
+                <a href="{% url 'logout' %}"
+                   class="text-lg text-zinc-400 font-heading font-bold hover:text-red-600 transition">
+                    Log Out →
+                </a>
+            </div>
+            {% else %}
+            <!-- Auth - Sign In + Sign Up -->
             <div class="flex items-center gap-4">
                 <a href="{% url 'login' %}"
-                   class="rounded-lg bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm font-heading font-medium transition">
+                   class="rounded-lg bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm font-heading font-medium 
+                          transition">
                     Sign In
                 </a>
                 <a href="{% url 'signup' %}"
@@ -43,6 +60,7 @@
                     Sign Up
                 </a>
             </div>
+            {% endif %}
         </div>
     </header>
 
@@ -68,9 +86,9 @@
                 </p>
                 <!-- Hero Nav Buttons -->
                 <div class="mt-10 flex flex-wrap gap-4">
-                    <a href="#"
+                    <a href="{% url 'builder' %}"
                        class="rounded-xl bg-blue-600 px-6 py-3 font-heading font-medium transition hover:bg-blue-500">
-                        Start Building <img src="" alt="">
+                        Start Building
                     </a>
                     <a href="#"
                        class="rounded-xl border border-zinc-700 px-6 py-3 font-heading font-medium transition 
@@ -130,10 +148,10 @@
         <div class="mx-auto max-w-7xl px-6">
             <div class="rounded-3xl border border-zinc-800 bg-linear-to-r from-zinc-900 to-zinc-800 px-8 py-20 text-center">
                 <h2 class="text-5xl font-heading font-bold">Ready to engineer your rig?</h2>
-                <p class="mx-auto mt-6 max-w-2xl text-zinc-400 font-text font-semibold">
+                <p class="mx-auto mt-6 max-w-2xl text-zinc-400 text-xl font-text font-semibold">
                     Join thousands of builders using PC Forge to optimize their gaming experience and productivity workloads.
                 </p>
-                <a href="#"
+                <a href="{% url 'builder' %}"
                    class="mt-10 inline-block rounded-full bg-blue-600 px-8 py-4 font-text font-medium 
                           transition hover:bg-blue-500">
                     Launch Builder Now
@@ -146,8 +164,8 @@
     <!-- FOOTER -->
     <footer class="border-t border-zinc-800 py-10">
         <div class="mx-auto flex max-w-7xl flex-col gap-6 px-6 md:flex-row md:items-center md:justify-between">
+            <!-- Copyright Message -->
             <div>
-                <!-- Copyright Message -->
                 <h3 class="font-heading font-bold">
                     &copy; HardwareBase
                 </h3>
@@ -155,6 +173,7 @@
                     High Performance Engineering.
                 </p>
             </div>
+            <!-- Footer Nav -->
             <nav class="flex flex-wrap gap-6 text-sm text-zinc-500 font-code">
                 <a href="#" class="hover:text-zinc-300 transition">
                     About

@@ -92,6 +92,7 @@ class RAM(models.Model):
     brand = models.CharField(max_length=50)
     mem_type = models.CharField(max_length=50, choices=MemTypeChoices.choices)
     form_factor = models.CharField(max_length=50)
+    capacity = models.IntegerField()
     speed = models.IntegerField()
     latency = models.IntegerField()
     timing = models.CharField(max_length=50)

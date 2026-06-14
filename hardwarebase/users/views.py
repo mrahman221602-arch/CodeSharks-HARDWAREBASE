@@ -78,27 +78,26 @@ def login_view(req: HttpRequest):
 # ---
 
 def logout_view(req: HttpRequest):
-    pass
+    req.session.flush()
+    return redirect('home')
 
 # ---
 
 def dashboard_view(req: HttpRequest):
     
-    # retrieve CUID from session
+    # get current user info from session
     cuid = req.session.get('cuid')
     if not cuid:
         return redirect('login')
-    
-    # get current user info
     try:
         user = User.objects.get(pk=cuid)
-        # builds: QuerySet = user.user_build.all()
+        builds: QuerySet = user.user_build.all()
     except Exception:
         return redirect('login')
     
     context = {
         'user': user,
-        # 'builds': builds
+        'builds': builds
     }
 
     return render(req, 'users/dashboard.html', context)
